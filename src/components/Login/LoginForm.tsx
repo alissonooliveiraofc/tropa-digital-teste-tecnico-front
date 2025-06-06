@@ -35,7 +35,7 @@ const Left = styled.div`
 const Logo = styled.div`
   font-weight: bold;
   font-size: 1.6rem;
-  color: #D77B38;
+  color: #cc6237;
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@ const Logo = styled.div`
 `;
 
 const Title = styled.h2`
-  color: #D77B38;
+  color: #cc6237;
   font-size: 1.2rem;
   margin-bottom: 8px;
   font-weight: 600;
@@ -63,7 +63,7 @@ const Form = styled.form`
 `;
 
 const Label = styled.label`
-  color: #b06b25;
+  color: #cc6237;
   font-weight: 500;
   margin-bottom: 4px;
   font-size: 1rem;
@@ -77,7 +77,7 @@ const Input = styled.input`
   background: #f7f7f9;
   outline: none;
   &:focus {
-    border-color: #D77B38;
+    border-color: #cc6237;
   }
 `;
 
@@ -85,15 +85,13 @@ const Button = styled.button`
   padding: 12px;
   border: none;
   border-radius: 7px;
-  background: #D77B38;
+  background: #cc6237;
   color: #fff;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s;
   margin-top: 8px;
-  &:hover {
-    background: #b06b25;
   }
 
   // @media (max-width: 700px) {
@@ -103,7 +101,7 @@ const Button = styled.button`
 `;
 
 const Right = styled.div`
-  background: #e47a3d;
+  background: #cc6237;
   flex: 1;
   min-width: 300px;
   display: flex;
