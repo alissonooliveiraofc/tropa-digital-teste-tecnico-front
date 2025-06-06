@@ -13,22 +13,24 @@ const Container = styled.div`
 const Card = styled.div`
   display: flex;
   box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  border-radius: 12px;
+  border-radius: 20px;
   background: #fff;
   overflow: hidden;
-  max-width: 700px;
+  max-width: 750px;
+  height: 498px;
   width: 100%;
-
+  padding: 11px;
   
 `;
 
 const Left = styled.div`
-  padding: 40px;
+  padding: 20px;
   flex: 1;
   min-width: 330px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
 
 `;
 
@@ -36,15 +38,16 @@ const Logo = styled.div`
   font-weight: bold;
   font-size: 1.6rem;
   color: #cc6237;
-  margin-bottom: 12px;
+  justify-self: start;
   display: flex;
   align-items: center;
-  gap: 8px;
+  margin-bottom: 24px; // Adiciona espaço abaixo do logo
+  margin-top: -30px;   // Move o logo um pouco para cima
 `;
 
 const Title = styled.h2`
   color: #cc6237;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   margin-bottom: 8px;
   font-weight: 600;
   margin-top: 10px;
@@ -52,7 +55,7 @@ const Title = styled.h2`
 
 const Subtitle = styled.p`
   font-size: 0.95rem;
-  color: #666;
+  color: #9BACCB;
   margin-bottom: 28px;
 `;
 
@@ -60,6 +63,12 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 18px;
+`;
+
+const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* Espaço entre label e input */
 `;
 
 const Label = styled.label`
@@ -72,7 +81,7 @@ const Label = styled.label`
 const Input = styled.input`
   padding: 10px 14px;
   border: 1px solid #e0e0e0;
-  border-radius: 7px;
+  border-radius: 45px;
   font-size: 1rem;
   background: #f7f7f9;
   outline: none;
@@ -103,11 +112,11 @@ const Button = styled.button`
 const Right = styled.div`
   background: #cc6237;
   flex: 1;
-  min-width: 300px;
+  min-width: 357px;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  border-radius: 20px;
   // @media (max-width: 700px) {
   //   display: none; /* Esconde a parte direita em telas pequenas */
   // }
@@ -116,7 +125,10 @@ const Right = styled.div`
 
 // Substitua o caminho pelo SVG baixado do Figma (coloque na pasta assets)
 const Illustration = styled.img`
-  max-width: 220px;
+  max-width: 357px;
+  max-height: 316px;
+  margin-top: 161px; /* Adiciona um pouco de espaço acima da imagem */
+  margin-right: 20px; /* Adiciona espaço à esquerda da imagem */
 `;
 
 export default function LoginForm() {
@@ -135,14 +147,14 @@ export default function LoginForm() {
       <Card>
         <Left>
           <Logo>
-            <img src={'/illustration.png'} alt="Tropa Digital" height={24} />
+            <img src={'/illustration.png'} alt="Tropa Digital" height={25} />
           </Logo>
           <Title>Bem-vindo de volta</Title>
           <Subtitle>
             Entre com sua conta para acessar o painel.
           </Subtitle>
           <Form onSubmit={handleSubmit}>
-            <div>
+            <Field>
               <Label htmlFor="email">E-mail</Label>
               <Input
                 id="email"
@@ -152,8 +164,8 @@ export default function LoginForm() {
                 placeholder="seunome@seuservidor.com"
                 required
               />
-            </div>
-            <div>
+            </Field>
+            <Field>
               <Label htmlFor="senha">Senha</Label>
               <Input
                 id="senha"
@@ -163,7 +175,7 @@ export default function LoginForm() {
                 placeholder="Digite aqui"
                 required
               />
-            </div>
+            </Field>
             <Button type="submit">Enviar</Button>
           </Form>
         </Left>
