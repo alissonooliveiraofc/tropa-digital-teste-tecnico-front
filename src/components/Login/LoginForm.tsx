@@ -31,7 +31,7 @@ const Left = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-
+  margin-top: -48px;
 `;
 
 const Logo = styled.div`
@@ -41,8 +41,8 @@ const Logo = styled.div`
   justify-self: start;
   display: flex;
   align-items: center;
-  margin-bottom: 24px; // Adiciona espaço abaixo do logo
-  margin-top: -30px;   // Move o logo um pouco para cima
+  margin-bottom: 15px; // Adiciona espaço abaixo do logo
+  
 `;
 
 const TitleBlock = styled.div`
@@ -66,7 +66,7 @@ const Subtitle = styled.p`
   font-size: 0.85rem;
   color: #9BACCB;
   margin-bottom: 28px;
-  margin-top: -7px;
+  margin-top: -10px;
 `;
 
 const Form = styled.form`
@@ -91,29 +91,34 @@ const Label = styled.label`
 
 const Input = styled.input`
   padding: 10px 14px;
-  width: 89%;
+  width: 87%;
   border: 1px solid #e0e0e0;
   border-radius: 45px;
   font-size: 1rem;
-  background: #f7f7f9;
+  background: #F6F6F6;
   outline: none;
   &:focus {
     border-color: #cc6237;
+  }
+  
+  &::placeholder {
+    font-size: 0.75rem; /* diminua esse valor conforme desejar */
+    color: #657593;
   }
 `;
 
 const Button = styled.button`
   padding: 12px;
   border: none;
-  border-radius: 7px;
+  border-radius: 45px;
   background: #cc6237;
   color: #fff;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: background 0.2s;
-  margin-top: 8px;
-  width: 89%;
+  margin-top: 3px;
+  width: 87%;
   }
 
   // @media (max-width: 700px) {
