@@ -91,10 +91,11 @@ const Label = styled.label`
 
 const Input = styled.input`
   padding: 10px 14px;
+  color: #657593;
   width: 87%;
   border: 1px solid #e0e0e0;
   border-radius: 45px;
-  font-size: 1rem;
+  font-size: 0.75rem;
   background: #F6F6F6;
   outline: none;
   &:focus {
