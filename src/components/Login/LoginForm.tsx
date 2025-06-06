@@ -16,7 +16,7 @@ const Card = styled.div`
   border-radius: 20px;
   background: #fff;
   overflow: hidden;
-  max-width: 750px;
+  max-width: 758px;
   height: 498px;
   width: 100%;
   padding: 11px;
@@ -45,24 +45,35 @@ const Logo = styled.div`
   margin-top: -30px;   // Move o logo um pouco para cima
 `;
 
+const TitleBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin-top: -20x; /* Move o bloco de título para cima */
+
+`;
+
 const Title = styled.h2`
   color: #cc6237;
   font-size: 1.6rem;
-  margin-bottom: 8px;
+  margin: 0;
   font-weight: 600;
   margin-top: 10px;
 `;
 
 const Subtitle = styled.p`
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #9BACCB;
   margin-bottom: 28px;
+  margin-top: -7px;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: 100%;
 `;
 
 const Field = styled.div`
@@ -75,11 +86,12 @@ const Label = styled.label`
   color: #cc6237;
   font-weight: 500;
   margin-bottom: 4px;
-  font-size: 1rem;
+  font-size: 0.8rem;
 `;
 
 const Input = styled.input`
   padding: 10px 14px;
+  width: 89%;
   border: 1px solid #e0e0e0;
   border-radius: 45px;
   font-size: 1rem;
@@ -101,6 +113,7 @@ const Button = styled.button`
   cursor: pointer;
   transition: background 0.2s;
   margin-top: 8px;
+  width: 89%;
   }
 
   // @media (max-width: 700px) {
@@ -128,7 +141,7 @@ const Illustration = styled.img`
   max-width: 357px;
   max-height: 316px;
   margin-top: 161px; /* Adiciona um pouco de espaço acima da imagem */
-  margin-right: 20px; /* Adiciona espaço à esquerda da imagem */
+  margin-right: 80px;
 `;
 
 export default function LoginForm() {
@@ -149,10 +162,13 @@ export default function LoginForm() {
           <Logo>
             <img src={'/illustration.png'} alt="Tropa Digital" height={25} />
           </Logo>
-          <Title>Bem-vindo de volta</Title>
-          <Subtitle>
-            Entre com sua conta para acessar o painel.
-          </Subtitle>
+          <TitleBlock>
+            <Title>Bem-vindo de volta</Title>
+            <Subtitle>
+              Entre com sua conta para acessar o painel.
+            </Subtitle>
+          </TitleBlock>
+
           <Form onSubmit={handleSubmit}>
             <Field>
               <Label htmlFor="email">E-mail</Label>
