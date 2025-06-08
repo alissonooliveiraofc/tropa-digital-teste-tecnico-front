@@ -9,6 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background: #f7f7f9;
+  min-width: 300px;
 `;
 
 const Card = styled.div`
@@ -18,9 +19,14 @@ const Card = styled.div`
   background: #fff;
   overflow: hidden;
   max-width: 758px;
+  min-width: 300px;
   height: 498px;
   width: 100%;
   padding: 11px;
+
+  @media (max-width: 530px) {
+  padding: 50px;
+}
   
 `;
 
@@ -42,12 +48,48 @@ const EyeButton = styled.button`
   align-items: center;
   color: #b06b25;
   font-size: 1.25rem;
+
+  @media (max-width: 747px) {
+  left: 200px;
+}
+
+@media (max-width: 709px) {
+  left: 200px;
+}
+
+@media (max-width: 663px) {
+  left: 200px;
+}
+
+@media (max-width: 645px) {
+  left: 180px;
+}
+
+@media (max-width: 590px) {
+  left: 160px;
+}
+
+@media (max-width: 530px) {
+  left: 190px;
+}
+
+@media (max-width: 485px) {
+  left: 160px;
+
+  @media (max-width: 437px) {
+  left: 140px;
+}
+
+@media (max-width: 418px) {
+  left: 120px;
+}
+}
 `;
 
 const Left = styled.div`
   padding: 20px;
   flex: 1;
-  min-width: 330px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -127,6 +169,10 @@ const Input = styled.input`
     font-size: 0.75rem; /* diminua esse valor conforme desejar */
     color: #657593;
   }
+
+  @media (max-width: 530px) {
+  width: 70%;
+}
 `;
 
 const Button = styled.button`
@@ -141,12 +187,10 @@ const Button = styled.button`
   transition: background 0.2s;
   margin-top: 3px;
   width: 87%;
-  }
 
-  // @media (max-width: 700px) {
-  //   justify-self: center; /* Centraliza o botão em telas pequenas */
-  //   width: 25%;
-  // }
+  @media (max-width: 530px) {
+  width: 70%;
+}
 `;
 
 const Right = styled.div`
@@ -157,9 +201,43 @@ const Right = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 20px;
-  // @media (max-width: 700px) {
-  //   display: none; /* Esconde a parte direita em telas pequenas */
-  // }
+  
+  @media (max-width: 709px) {
+    min-width: 180px;
+    padding: 0;
+    & img {
+      max-width: 325px;
+      max-height: 316px;
+      margin-top: 190px;
+      margin-right: 60px;
+    }
+  }
+
+  @media (max-width: 651px) {
+    min-width: 180px;
+    padding: 0;
+    & img {
+      max-width: 270px;
+      max-height: 316px;
+      margin-top: 238px;
+      margin-right: 80px;
+    }
+  }
+
+  @media (max-width: 622px) {
+    min-width: 180px;
+    padding: 0;
+    & img {
+      max-width: 200px;
+      max-height: 316px;
+      margin-top: 300px;
+      margin-right: 110px;
+    }
+  }
+
+  @media (max-width: 530px) {
+    display: none;
+  }
   
 `;
 
