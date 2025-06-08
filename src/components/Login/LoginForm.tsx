@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const Container = styled.div`
   width: 100vw;
@@ -21,6 +22,26 @@ const Card = styled.div`
   width: 100%;
   padding: 11px;
   
+`;
+
+const PasswordWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
+const EyeButton = styled.button`
+  position: absolute;
+  left: 230px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #b06b25;
+  font-size: 1.25rem;
 `;
 
 const Left = styled.div`
@@ -152,6 +173,7 @@ const Illustration = styled.img`
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,14 +210,23 @@ export default function LoginForm() {
             </Field>
             <Field>
               <Label htmlFor="senha">Senha</Label>
-              <Input
-                id="senha"
-                type="password"
-                value={senha}
-                onChange={e => setSenha(e.target.value)}
-                placeholder="Digite aqui"
-                required
-              />
+              <PasswordWrapper>
+                <Input
+                  id="senha"
+                  type={showPassword ? "text" : "password"}
+                  value={senha}
+                  onChange={e => setSenha(e.target.value)}
+                  placeholder="Digite aqui"
+                  required
+                />
+                <EyeButton
+                  type="button"
+                  aria-label={showPassword ? "Esconder senha" : "Mostrar senha"}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </EyeButton>
+              </PasswordWrapper>
             </Field>
             <Button type="submit">Enviar</Button>
           </Form>

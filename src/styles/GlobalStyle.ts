@@ -16,4 +16,15 @@ export default createGlobalStyle`
   button, input {
     font-family: 'Roboto', 'sans-serif';
   }
+
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+  display: none;
+}
+  input[type="password"]::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
 `;
