@@ -70,18 +70,18 @@ const EyeButton = styled.button`
 }
 
 @media (max-width: 530px) {
-  left: 190px;
+  left: 230px;
 }
 
 @media (max-width: 485px) {
-  left: 160px;
+  left: 200px;
 
   @media (max-width: 437px) {
-  left: 140px;
+  left: 180px;
 }
 
 @media (max-width: 418px) {
-  left: 120px;
+  left: 170px;
 }
 }
 `;
@@ -171,7 +171,7 @@ const Input = styled.input`
   }
 
   @media (max-width: 530px) {
-  width: 70%;
+  width: 85%;
 }
 `;
 
@@ -228,9 +228,31 @@ const Right = styled.div`
     min-width: 180px;
     padding: 0;
     & img {
-      max-width: 200px;
+      max-width: 250px;
       max-height: 316px;
-      margin-top: 300px;
+      margin-top: 256px;
+      margin-right: 110px;
+    }
+  }
+
+  @media (max-width: 556px) {
+    min-width: 180px;
+    padding: 0;
+    & img {
+      max-width: 240px;
+      max-height: 316px;
+      margin-top: 265px;
+      margin-right: 110px;
+    }
+  }
+
+  @media (max-width: 550px) {
+    min-width: 180px;
+    padding: 0;
+    & img {
+      max-width: 220px;
+      max-height: 316px;
+      margin-top: 282px;
       margin-right: 110px;
     }
   }
