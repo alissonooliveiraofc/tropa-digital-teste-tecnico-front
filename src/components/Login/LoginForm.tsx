@@ -142,7 +142,6 @@ const Right = styled.div`
   
 `;
 
-// Substitua o caminho pelo SVG baixado do Figma (coloque na pasta assets)
 const Illustration = styled.img`
   max-width: 357px;
   max-height: 316px;
@@ -156,9 +155,9 @@ export default function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulação de login: salve algo no localStorage
+
     localStorage.setItem('logged', 'true');
-    window.location.href = '/dashboard'; // depois vamos melhorar com react-router
+    window.location.href = '/dashboard';
   };
 
   return (
