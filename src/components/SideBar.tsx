@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FiGrid, FiCalendar, FiUsers, FiClipboard } from "react-icons/fi";
+import { FiGrid, FiPower, FiCalendar, FiUsers, FiUser, FiClipboard } from "react-icons/fi";
 
 const SidebarContainer = styled.aside`
   position: fixed;
@@ -36,7 +36,7 @@ const Brand = styled.div`
 `;
 
 const MenuLabel = styled.div`
-  color: #b4b4b4;
+  color: #A3A3A3;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 1.3px;
@@ -74,7 +74,7 @@ const MenuItem = styled.li<{ active?: boolean }>`
   transition: background 0.15s, color 0.15s;
   svg {
     font-size: 1.17rem;
-    color: ${({ active }) => (active ? "#fff" : "#b4b4b4")};
+    color: ${({ active }) => (active ? "#fff" : "#232323")};
     margin-right: 4px;
   }
   &:hover {
@@ -92,11 +92,12 @@ const Spacer = styled.div`
 
 const UserBlock = styled.div`
   border-top: 1px solid #eee;
-  padding: 19px 0 0 0;
-  margin-top: 18px;
+  padding: 50px 0 0 0;
+  margin-top: -18px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 20px;
 `;
 
 const UserProfile = styled.div`
@@ -110,9 +111,10 @@ const UserProfile = styled.div`
 const Avatar = styled.img`
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 35%;
   object-fit: cover;
-  border: 1.5px solid #e8763e;
+  border: 1px solid #e8763e;
+  margin-left: -10px;
 `;
 
 const UserInfo = styled.div`
@@ -121,31 +123,38 @@ const UserInfo = styled.div`
 `;
 
 const UserName = styled.span`
-  font-weight: 700;
-  font-size: 0.97rem;
+  font-weight: 500;
+  font-size: 14px;
   color: #232323;
   margin-bottom: 1.5px;
 `;
 
 const UserRole = styled.span`
   font-size: 0.86rem;
-  color: #b4b4b4;
+  color: #A3A3A3;
+  font-weight: 400;
+  font-size: 11px;
 `;
 
 const SidebarButton = styled.button`
   background: none;
   border: none;
-  color: #77625c;
+  color: #232323;
   margin-bottom: 4px;
   text-align: left;
   cursor: pointer;
   padding: 6px 22px;
-  font-size: 0.97rem;
+  font-size: 14px;
   width: 100%;
   &:last-child {
     color: #e8763e;
-    font-weight: 600;
+    font-weight: 500;
   }
+
+  &:first-of-type {
+    margin-bottom: 14px; /* ou o valor que desejar */
+  }
+  
 `;
 
 export default function Sidebar() {
@@ -160,19 +169,19 @@ export default function Sidebar() {
         </BrandBlock>
         <Menu>
           <MenuItem>
-            <FiGrid color="#252525" size={13} />
+            <FiGrid size={13} />
             Dashboard
           </MenuItem>
           <MenuItem active>
-            <FiCalendar color="#252525" size={13} />
+            <FiCalendar size={13} />
             Eventos
           </MenuItem>
           <MenuItem>
-            <FiUsers color="#252525" size={13} />
+            <FiUsers size={13} />
             Equipes
           </MenuItem>
           <MenuItem>
-            <FiClipboard color="#252525" size={13} />
+            <FiClipboard size={13} />
             Inscrições
           </MenuItem>
         </Menu>
@@ -186,8 +195,12 @@ export default function Sidebar() {
             <UserRole>Administrador</UserRole>
           </UserInfo>
         </UserProfile>
-        <SidebarButton>Alterar dados</SidebarButton>
-        <SidebarButton>Sair</SidebarButton>
+        <SidebarButton>
+          <FiUser style={{ marginRight: 8, marginLeft: -10 }} />
+          Alterar dados</SidebarButton>
+        <SidebarButton>
+          <FiPower style={{ marginRight: 8, marginLeft: -10 }} />
+          Sair</SidebarButton>
       </UserBlock>
     </SidebarContainer>
   );
