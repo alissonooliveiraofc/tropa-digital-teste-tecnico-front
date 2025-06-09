@@ -8,9 +8,9 @@ export default createGlobalStyle`
   }
 
   body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
     font-family: 'Roboto', 'sans-serif';
     background: #f7f7f9;
     color: #333;

@@ -1,17 +1,22 @@
 import Sidebar from '../components/SideBar';
 import styled from 'styled-components';
+import EventosTable from '../components/EventosTable';
 
 const Layout = styled.div`
   display: flex;
   background: #f8f8f8;
-  min-height: 100dvh;
+  width: 100%;
+  // min-height: 100dvh;
 `;
 
 const Main = styled.main`
-  margin-left: 240px; /* Mesma largura da sidebar */
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  padding: 32px;
+  // padding: 32px 0 0 32px;
+  margin-left: 240px; // <- Adicione ISSO!
   min-width: 0;
+  box-sizing: border-box;
 `;
 
 const Header = styled.div`
@@ -35,6 +40,10 @@ const Card = styled.div`
   padding: 30px 22px 12px 22px;
   box-shadow: 0 3px 20px rgba(232, 118, 62, 0.08);
   margin-bottom: 24px;
+  align-self: stretch;
+  box-sizing: border-box;
+  width: 100%; // <-- Adicione esta linha
+  max-width: unset; // <-- Adicione esta linha para remover limites
 `;
 
 export default function Eventos() {
@@ -47,7 +56,7 @@ export default function Eventos() {
         </Header>
         <Title>Todos eventos</Title>
         <Card>
-          {/* Conteúdo do card de eventos */}
+          <EventosTable />
         </Card>
       </Main>
     </Layout>
