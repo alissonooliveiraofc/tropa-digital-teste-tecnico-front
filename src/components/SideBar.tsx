@@ -172,7 +172,7 @@ export default function Sidebar() {
             <FiGrid size={13} />
             Dashboard
           </MenuItem>
-          <MenuItem active>
+          <MenuItem>
             <FiCalendar size={13} />
             Eventos
           </MenuItem>
