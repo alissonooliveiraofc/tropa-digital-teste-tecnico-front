@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Card = styled.div`
   display: flex;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   border-radius: 20px;
   background: #fff;
   overflow: hidden;
@@ -25,6 +25,7 @@ const Card = styled.div`
   padding: 11px;
 
   @media (max-width: 530px) {
+  justify-content: center;
   padding: 50px;
 }
   
@@ -189,7 +190,7 @@ const Button = styled.button`
   width: 87%;
 
   @media (max-width: 530px) {
-  width: 70%;
+  width: 85%;
 }
 `;
 
