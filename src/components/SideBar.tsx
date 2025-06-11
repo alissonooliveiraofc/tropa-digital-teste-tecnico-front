@@ -164,6 +164,37 @@ const SidebarButton = styled.button`
   }
 `;
 
+// Novo botão estilizado para o NavLink "Sair"
+const SidebarNavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  border-radius:5px;
+  color: #CC6237;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-align: left;
+  cursor: pointer;
+  padding: 6px 22px;
+  font-size: 14px;
+  width: 100%;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  svg {
+    margin-right: 8px;
+    margin-left: -10px;
+  }
+  &:hover {
+    background: #CC6237;
+    color: #fff;
+    svg {
+      color: #fff;
+    }
+  }
+`;
+
 export default function Sidebar() {
   return (
     <SidebarContainer>
@@ -212,10 +243,12 @@ export default function Sidebar() {
         </UserProfile>
         <SidebarButton>
           <FiUser style={{ marginRight: 8, marginLeft: -10 }} />
-          Alterar dados</SidebarButton>
-        <SidebarButton>
-          <FiPower style={{ marginRight: 8, marginLeft: -10 }} />
-          Sair</SidebarButton>
+          Alterar dados
+        </SidebarButton>
+        <SidebarNavLink to="/" >
+          <FiPower />
+          Sair
+        </SidebarNavLink>
       </UserBlock>
     </SidebarContainer>
   );
