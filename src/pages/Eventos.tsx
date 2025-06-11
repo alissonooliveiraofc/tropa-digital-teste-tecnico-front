@@ -21,6 +21,7 @@ const Main = styled.main`
 
 const Header = styled.div`
   margin-bottom: 10px;
+  margin-top: 32px;
   font-size: 1.1rem;
   color: #77625c;
 `;
@@ -29,7 +30,7 @@ const Title = styled.h3`
   color: #e8763e;
   font-size: 1.16rem;
   margin-bottom: 1.2rem;
-  margin-top: 0.6rem;
+  // margin-top: 0.6rem;
   font-weight: 700;
 `;
 
@@ -40,11 +41,12 @@ const Card = styled.div`
   padding: 30px 22px 12px 22px;
   box-shadow: 0 3px 20px rgba(232, 118, 62, 0.08);
   margin-bottom: 24px;
+  margin-top: 5px;
   align-self: stretch;
   box-sizing: border-box;
-  width: 100%; // <-- Adicione esta linha
-  max-width: unset; // <-- Adicione esta linha para remover limites
-`;
+  width: 97%;         // <- ESSENCIAL
+  max-width: unset;    // <- ESSENCIAL
+`
 
 export default function Eventos() {
   return (

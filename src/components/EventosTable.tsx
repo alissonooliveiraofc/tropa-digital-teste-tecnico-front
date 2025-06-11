@@ -115,7 +115,8 @@ const AddButton = styled.button`
 `;
 
 const Table = styled.table`
-  // width: 100%;
+  // margin-left: 240px;
+  width: 85%;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 13px;
@@ -137,6 +138,7 @@ const Td = styled.td`
   font-size: 13px;
   color: #232323;
   vertical-align: middle;
+  // width: 20%;
   &:last-child {
     text-align: right;
     padding-right: 10px;
@@ -147,6 +149,7 @@ const Status = styled.span`
   display: flex;
   align-items: center;
   gap: 5px;
+  width: 100%;
   font-size: 13px;
   color: #4caf50;
   font-weight: 500;
