@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
-import { FiSearch, FiPlus, FiMoreVertical } from "react-icons/fi";
+import { FiSearch, FiPlus, FiMoreVertical, FiX } from "react-icons/fi";
 
 // Simulação dos dados
-const data = [
+const initialData = [
   {
     nome: "Clube do Laço Coração Pantaneiro",
     equipes: 10,
@@ -33,7 +34,7 @@ const columns = [
     header: "Status",
     accessorKey: "status",
     cell: (info: any) => (
-      <Status>
+      <Status $status={info.getValue()}>
         <span className="dot" />
         {info.getValue()}
       </Status>
@@ -116,7 +117,7 @@ const AddButton = styled.button`
 
 const Table = styled.table`
   width: 100%;
-  table-layout: fixed;      // <- ESSENCIAL: faz as colunas terem larguras iguais
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
   font-size: 13px;
@@ -140,14 +141,13 @@ const Td = styled.td`
   font-size: 13px;
   color: #657593;
   vertical-align: middle;
-  // width: 20%;
   &:last-child {
     text-align: right;
     padding-right: 10px;
   }
 `;
 
-const Status = styled.span`
+const Status = styled.span<{ $status?: string }>`
   display: flex;
   align-items: center;
   gap: 5px;
@@ -159,8 +159,9 @@ const Status = styled.span`
     display: inline-block;
     width: 7px;
     height: 7px;
-    background: #34e62f;
     border-radius: 50%;
+    background: ${({ $status }) =>
+    $status === "Inativo" ? "#e53e3e" : "#34e62f"};
   }
 `;
 
@@ -216,12 +217,123 @@ const PaginationTextBtn = styled(PageBtn)`
   }
 `;
 
+// Modal styles
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+`;
+
+const ModalContent = styled.div`
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 28px 24px 28px;
+  min-width: 320px;
+  max-width: 95vw;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
+
+const ModalClose = styled.button`
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: #CC6237;
+  cursor: pointer;
+  z-index: 1;
+`;
+
+const ModalTitle = styled.h3`
+  margin: 0 0 10px 0;
+  color: #CC6237;
+  font-size: 1.15rem;
+  font-weight: 600;
+`;
+
+const ModalForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const ModalLabel = styled.label`
+  color: #CC6237;
+  font-weight: 500;
+  font-size: 0.95rem;
+`;
+
+const ModalInput = styled.input`
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #f7f7f7;
+  &:focus {
+    border-color: #CC6237;
+    outline: none;
+  }
+`;
+
+const ModalSubmit = styled.button`
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #CC6237;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 8px;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(0.96);
+  }
+`;
+
 export default function EventosTable() {
+  const [data, setData] = useState(initialData);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [novoEvento, setNovoEvento] = useState({
+    nome: "",
+    equipes: "",
+    status: "Ativo",
+    data: "",
+  });
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  function handleOpenModal() {
+    setModalOpen(true);
+    setNovoEvento({ nome: "", equipes: "", status: "Ativo", data: "" });
+  }
+
+  function handleCloseModal() {
+    setModalOpen(false);
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    setNovoEvento({ ...novoEvento, [e.target.name]: e.target.value });
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!novoEvento.nome || !novoEvento.equipes || !novoEvento.data) return;
+    setData([...data, { ...novoEvento, equipes: Number(novoEvento.equipes) }]);
+    setModalOpen(false);
+  }
 
   return (
     <>
@@ -230,11 +342,12 @@ export default function EventosTable() {
           <FiSearch />
           <input placeholder="Buscar eventos" />
         </SearchBox>
-        <AddButton>
+        <AddButton onClick={handleOpenModal}>
           <FiPlus />
           Inserir novo
         </AddButton>
       </TopBar>
+
       <Table>
         <colgroup>
           <col style={{ width: '30%' }} />
@@ -271,6 +384,60 @@ export default function EventosTable() {
         <PageBtn>3</PageBtn>
         <PaginationTextBtn>Próxima</PaginationTextBtn>
       </Pagination>
+
+      {isModalOpen && (
+        <ModalOverlay>
+          <ModalContent>
+            <ModalClose onClick={handleCloseModal}><FiX /></ModalClose>
+            <ModalTitle>Cadastrar novo evento</ModalTitle>
+            <ModalForm onSubmit={handleSubmit}>
+              <ModalLabel>Nome</ModalLabel>
+              <ModalInput
+                name="nome"
+                value={novoEvento.nome}
+                onChange={handleChange}
+                placeholder="Nome do evento"
+                required
+              />
+              <ModalLabel>Total de equipes</ModalLabel>
+              <ModalInput
+                name="equipes"
+                type="number"
+                min={1}
+                value={novoEvento.equipes}
+                onChange={handleChange}
+                placeholder="Quantidade"
+                required
+              />
+              <ModalLabel>Status</ModalLabel>
+              <select
+                name="status"
+                value={novoEvento.status}
+                onChange={handleChange}
+                style={{
+                  padding: "7px 10px",
+                  borderRadius: 6,
+                  border: "1px solid #e0e0e0",
+                  fontSize: "1rem",
+                  background: "#f6f6f6"
+                }}
+              >
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+              </select>
+              <ModalLabel>Data</ModalLabel>
+              <ModalInput
+                name="data"
+                value={novoEvento.data}
+                onChange={handleChange}
+                placeholder="Ex: 09 a 11 de Junho"
+                required
+              />
+              <ModalSubmit type="submit">Cadastrar</ModalSubmit>
+            </ModalForm>
+          </ModalContent>
+        </ModalOverlay>
+      )}
     </>
   );
 }
