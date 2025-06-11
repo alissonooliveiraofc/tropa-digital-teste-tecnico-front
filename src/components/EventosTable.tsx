@@ -235,9 +235,9 @@ export default function EventosTable() {
       </TopBar>
       <Table>
         <colgroup>
-          <col style={{ width: '25%' }} />
+          <col style={{ width: '30%' }} />
           <col style={{ width: '20%' }} />
-          <col style={{ width: '15%' }} />
+          <col style={{ width: '20%' }} />
           <col style={{ width: '20%' }} />
           <col style={{ width: '3%' }} />
         </colgroup>

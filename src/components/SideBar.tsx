@@ -78,7 +78,7 @@ const MenuItem = styled.li<{ active?: boolean }>`
     margin-right: 4px;
   }
   &:hover {
-    background: #e8763e;
+    background: #CC6237;
     color: #fff;
     svg {
       color: #fff;
@@ -139,6 +139,7 @@ const UserRole = styled.span`
 const SidebarButton = styled.button`
   background: none;
   border: none;
+  border-radius:5px;
   color: #232323;
   margin-bottom: 4px;
   text-align: left;
@@ -150,7 +151,12 @@ const SidebarButton = styled.button`
     color: #e8763e;
     font-weight: 500;
   }
-
+  &:hover {
+    background: #CC6237;
+    color: #fff;
+    svg {
+      color: #fff;
+    }
   &:first-of-type {
     margin-bottom: 14px; /* ou o valor que desejar */
   }
