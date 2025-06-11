@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+
 
 const Container = styled.div`
   width: 100vw;
@@ -272,6 +274,7 @@ const Illustration = styled.img`
 `;
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -280,7 +283,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     localStorage.setItem('logged', 'true');
-    window.location.href = '/dashboard';
+    navigate('/eventos');
   };
 
   return (

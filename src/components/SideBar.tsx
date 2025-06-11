@@ -126,7 +126,7 @@ const UserName = styled.span`
   font-weight: 500;
   font-size: 14px;
   color: #232323;
-  margin-bottom: 1.5px;
+
 `;
 
 const UserRole = styled.span`
