@@ -43,7 +43,7 @@ const columns = [
     header: "Data",
     accessorKey: "data",
     cell: (info: any) => (
-      <span style={{ color: "#e8763e" }}>{info.getValue()}</span>
+      <span style={{ color: "#CC6237" }}>{info.getValue()}</span>
     ),
   },
   {
@@ -96,7 +96,7 @@ const SearchBox = styled.div`
 const AddButton = styled.button`
   display: flex;
   align-items: center;
-  background: #e8763e;
+  background: #CC6237;
   color: #fff;
   border: none;
   border-radius: 18px;
@@ -124,11 +124,13 @@ const Table = styled.table`
 
 const Th = styled.th`
   text-align: left;
-  color: #e8763e;
+  color: #CC6237;
+  opacity: 0.5;
   font-weight: 500;
   font-size: 13px;
   padding: 7px 0 7px 6px;
   background: transparent;
+  font-family: 'Poppins';
   border-bottom: 1.5px solid #f0f0f0;
 `;
 
@@ -136,7 +138,7 @@ const Td = styled.td`
   padding: 7px 0 7px 6px;
   border-bottom: 1px solid #f2f2f2;
   font-size: 13px;
-  color: #232323;
+  color: #657593;
   vertical-align: middle;
   // width: 20%;
   &:last-child {
@@ -151,8 +153,8 @@ const Status = styled.span`
   gap: 5px;
   width: 100%;
   font-size: 13px;
-  color: #4caf50;
-  font-weight: 500;
+  color: #657593;
+  font-weight: 400;
   .dot {
     display: inline-block;
     width: 7px;
@@ -165,7 +167,7 @@ const Status = styled.span`
 const ActionsButton = styled.button`
   background: none;
   border: none;
-  color: #c77c43;
+  color: #CC6237;
   cursor: pointer;
   border-radius: 6px;
   padding: 5px 6px;
@@ -187,7 +189,7 @@ const Pagination = styled.div`
 
 const PageBtn = styled.button<{ active?: boolean }>`
   border: none;
-  background: ${({ active }) => (active ? "#e8763e" : "#f7f7f7")};
+  background: ${({ active }) => (active ? "#CC6237" : "#f7f7f7")};
   color: ${({ active }) => (active ? "#fff" : "#232323")};
   font-weight: 500;
   border-radius: 999px;
@@ -197,7 +199,7 @@ const PageBtn = styled.button<{ active?: boolean }>`
   cursor: pointer;
   transition: background 0.15s;
   &:hover {
-    background: #e8763e;
+    background: #CC6237;
     color: #fff;
   }
 `;
@@ -209,7 +211,7 @@ const PaginationTextBtn = styled(PageBtn)`
   color: #232323;
   font-weight: 400;
   &:hover {
-    background: #e8763e;
+    background: #CC6237;
     color: #fff;
   }
 `;

@@ -27,7 +27,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.h3`
-  color: #e8763e;
+  color: #CC6237;
   font-size: 1.16rem;
   margin-bottom: 1.2rem;
   // margin-top: 0.6rem;
