@@ -115,8 +115,8 @@ const AddButton = styled.button`
 `;
 
 const Table = styled.table`
-  // margin-left: 240px;
-  width: 85%;
+  width: 100%;
+  table-layout: fixed;      // <- ESSENCIAL: faz as colunas terem larguras iguais
   border-collapse: separate;
   border-spacing: 0;
   font-size: 13px;
@@ -234,6 +234,13 @@ export default function EventosTable() {
         </AddButton>
       </TopBar>
       <Table>
+        <colgroup>
+          <col style={{ width: '25%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '15%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '3%' }} />
+        </colgroup>
         <thead>
           <tr>
             {table.getFlatHeaders().map(header => (
