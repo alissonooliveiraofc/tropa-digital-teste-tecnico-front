@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import { FiGrid, FiPower, FiCalendar, FiUsers, FiUser, FiClipboard } from "react-icons/fi";
 
 const SidebarContainer = styled.aside`
@@ -52,11 +53,11 @@ const Menu = styled.ul`
   gap: 3px;
   display: flex;
   flex-direction: column;
-  align-itens: center;
+  align-items: center;
   margin-top: -7px;
 `;
 
-const MenuItem = styled.li<{ active?: boolean }>`
+const MenuItem = styled(NavLink) <{ $icononly?: boolean }>`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -64,20 +65,21 @@ const MenuItem = styled.li<{ active?: boolean }>`
   height: 35px;
   padding: 10px;
   border-radius: 5px;
-  color: ${({ active }) => (active ? "#fff" : "#252525")};
-  background: ${({ active }) => (active ? "#e8763e" : "none")};
-  font-weight: 500px;
+  color: #252525;
+  background: none;
+  font-weight: 500;
   font-size: 14px;
   font-family: 'Roboto', Arial, sans-serif;
   cursor: pointer;
   margin-bottom: 2px;
+  text-decoration: none;
   transition: background 0.15s, color 0.15s;
   svg {
     font-size: 1.17rem;
-    color: ${({ active }) => (active ? "#fff" : "#232323")};
+    color: #232323;
     margin-right: 4px;
   }
-  &:hover {
+  &.active, &:hover {
     background: #CC6237;
     color: #fff;
     svg {
@@ -113,7 +115,7 @@ const Avatar = styled.img`
   height: 40px;
   border-radius: 35%;
   object-fit: cover;
-  border: 1px solid #e8763e;
+  border: 1px solid #CC6237;
   margin-left: -10px;
 `;
 
@@ -126,7 +128,6 @@ const UserName = styled.span`
   font-weight: 500;
   font-size: 14px;
   color: #232323;
-
 `;
 
 const UserRole = styled.span`
@@ -148,7 +149,7 @@ const SidebarButton = styled.button`
   font-size: 14px;
   width: 100%;
   &:last-child {
-    color: #e8763e;
+    color: #CC6237;
     font-weight: 500;
   }
   &:hover {
@@ -157,10 +158,10 @@ const SidebarButton = styled.button`
     svg {
       color: #fff;
     }
+  }
   &:first-of-type {
     margin-bottom: 14px; /* ou o valor que desejar */
   }
-  
 `;
 
 export default function Sidebar() {
@@ -174,28 +175,36 @@ export default function Sidebar() {
           <MenuLabel>MENU</MenuLabel>
         </BrandBlock>
         <Menu>
-          <MenuItem>
-            <FiGrid size={13} />
-            Dashboard
-          </MenuItem>
-          <MenuItem>
-            <FiCalendar size={13} />
-            Eventos
-          </MenuItem>
-          <MenuItem>
-            <FiUsers size={13} />
-            Equipes
-          </MenuItem>
-          <MenuItem>
-            <FiClipboard size={13} />
-            Inscrições
-          </MenuItem>
+          <li>
+            <MenuItem to="/dashboard">
+              <FiGrid size={13} />
+              Dashboard
+            </MenuItem>
+          </li>
+          <li>
+            <MenuItem to="/eventos">
+              <FiCalendar size={13} />
+              Eventos
+            </MenuItem>
+          </li>
+          <li>
+            <MenuItem to="/equipes">
+              <FiUsers size={13} />
+              Equipes
+            </MenuItem>
+          </li>
+          <li>
+            <MenuItem to="/inscricoes">
+              <FiClipboard size={13} />
+              Inscrições
+            </MenuItem>
+          </li>
         </Menu>
       </div>
       <Spacer />
       <UserBlock>
         <UserProfile>
-          <Avatar src="/kaique.jpg" alt="Kaique Steck" />
+          <Avatar src="/user-img.png" alt="Kaique Steck" />
           <UserInfo>
             <UserName>Kaique Steck</UserName>
             <UserRole>Administrador</UserRole>
