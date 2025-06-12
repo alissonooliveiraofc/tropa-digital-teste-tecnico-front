@@ -39,6 +39,7 @@ Este projeto foi desenvolvido como parte de um teste técnico, com o objetivo de
   - Busca em tempo real por nome do evento.
   - Persistência dos dados no localStorage.
 - **Atualização em tempo real** do nome do usuário no Sidebar e no Header.
+- **Redirecionamento de rotas não encontradas** para a página de login.
 - Componentes reutilizáveis e bem estruturados.
 
 ---
