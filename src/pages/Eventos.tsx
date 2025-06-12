@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import Sidebar from '../components/SideBar';
+import Sidebar from '../components/SideBar/SideBar';
 import styled from 'styled-components';
-import EventosTable from '../components/EventosTable';
+import EventosTable from '../components/EventosTable/EventosTable';
 
 const Layout = styled.div`
   display: flex;

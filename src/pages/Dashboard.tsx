@@ -1,5 +1,5 @@
-import Sidebar from "../components/SideBar";
-import PageUnderConstruction from "../components/PageUnderConstruction";
+import Sidebar from "../components/SideBar/SideBar";
+import PageUnderConstruction from "../components/Construction/PageUnderConstruction";
 
 export default function Dashboard() {
   return (
