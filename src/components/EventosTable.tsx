@@ -23,17 +23,17 @@ const columns = [
   {
     header: "Nome do evento",
     accessorKey: "nome",
-    cell: (info: any) => info.getValue(),
+    cell: (info: { getValue: () => string }) => info.getValue(),
   },
   {
     header: "Total de equipes",
     accessorKey: "equipes",
-    cell: (info: any) => info.getValue(),
+    cell: (info: { getValue: () => number }) => info.getValue(),
   },
   {
     header: "Status",
     accessorKey: "status",
-    cell: (info: any) => (
+    cell: (info: { getValue: () => string }) => (
       <Status $status={info.getValue()}>
         <span className="dot" />
         {info.getValue()}
@@ -43,7 +43,7 @@ const columns = [
   {
     header: "Data",
     accessorKey: "data",
-    cell: (info: any) => (
+    cell: (info: { getValue: () => string }) => (
       <span style={{ color: "#CC6237" }}>{info.getValue()}</span>
     ),
   },
@@ -201,17 +201,7 @@ const PageBtn = styled.button<{ active?: boolean }>`
   }
 `;
 
-const PaginationTextBtn = styled(PageBtn)`
-  min-width: unset;
-  padding: 0 10px;
-  background: #f7f7f7;
-  color: #232323;
-  font-weight: 400;
-  &:hover {
-    background: #CC6237;
-    color: #fff;
-  }
-`;
+// Removed unused PaginationTextBtn to fix the compile error
 
 // Modal styles
 const ModalOverlay = styled.div`
@@ -363,7 +353,10 @@ export default function EventosTable() {
     setActionsMenuVisible(null);
     setEditingIndex(index);
     if (index !== null) {
-      setNovoEvento(data[index]);
+      setNovoEvento({
+        ...data[index],
+        equipes: data[index].equipes.toString(),
+      });
     } else {
       setNovoEvento({ nome: "", equipes: "", status: "Ativo", data: "" });
     }
@@ -436,7 +429,10 @@ export default function EventosTable() {
     setModalOpen(true);
     setModalMode("visualizar");
     setEditingIndex(null);
-    setNovoEvento(data[index]);
+    setNovoEvento({
+      ...data[index],
+      equipes: data[index].equipes.toString(),
+    });
     setActionsMenuVisible(null);
   }
 
@@ -451,7 +447,7 @@ export default function EventosTable() {
               const searchTerm = e.target.value.toLowerCase();
               const storedData = localStorage.getItem("eventos");
               const allData = storedData ? JSON.parse(storedData) : initialData;
-              const filteredData = allData.filter((evento: any) =>
+              const filteredData = allData.filter((evento: { nome: string; equipes: number; status: string; data: string }) =>
                 evento.nome.toLowerCase().includes(searchTerm)
               );
               setData(filteredData);
