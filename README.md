@@ -31,7 +31,7 @@ Este projeto foi desenvolvido como parte de um teste técnico, com o objetivo de
 ## ✨ Funcionalidades
 
 - Interface intuitiva, responsiva e moderna.
-- **Login** com persistência de sessão.
+- **Login** simulado com persistência de sessão.
 - **Sidebar** com navegação entre páginas e alteração de dados do usuário (nome e foto).
 - **Tabela de eventos** com:
   - Cadastro, edição, visualização e remoção de eventos.
