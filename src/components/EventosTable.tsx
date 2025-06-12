@@ -340,13 +340,22 @@ export default function EventosTable() {
   });
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [actionsMenuVisible, setActionsMenuVisible] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // ajuste conforme necessário
   const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const paginatedRows = table.getRowModel().rows.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   function handleOpenModal(index: number | null = null) {
     setModalOpen(true);
@@ -462,7 +471,7 @@ export default function EventosTable() {
           </tr>
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row, rowIndex) => (
+          {paginatedRows.map((row, rowIndex) => (
             <tr key={row.id}>
               {row.getAllCells().map(cell => (
                 <Td key={cell.id}>
@@ -470,20 +479,20 @@ export default function EventosTable() {
                 </Td>
               ))}
               <Td>
-                <ActionsButton onClick={() => setActionsMenuVisible(rowIndex)}>
+                <ActionsButton onClick={() => setActionsMenuVisible(rowIndex + (currentPage - 1) * itemsPerPage)}>
                   <FiMoreVertical />
                 </ActionsButton>
-                {actionsMenuVisible === rowIndex && (
+                {actionsMenuVisible === rowIndex + (currentPage - 1) * itemsPerPage && (
                   <ActionsMenu ref={menuRef}>
-                    <ActionsMenuItem onClick={() => handleView(rowIndex)}>
+                    <ActionsMenuItem onClick={() => handleView(rowIndex + (currentPage - 1) * itemsPerPage)}>
                       <FiEye /> Visualizar
                     </ActionsMenuItem>
-                    <ActionsMenuItem onClick={() => handleOpenModal(rowIndex)}>
+                    <ActionsMenuItem onClick={() => handleOpenModal(rowIndex + (currentPage - 1) * itemsPerPage)}>
                       <FiEdit2 /> Editar
                     </ActionsMenuItem>
                     <ActionsMenuItem
                       className="danger"
-                      onClick={() => handleRemove(rowIndex)}
+                      onClick={() => handleRemove(rowIndex + (currentPage - 1) * itemsPerPage)}
                     >
                       <FiTrash2 /> Remover
                     </ActionsMenuItem>
@@ -494,6 +503,30 @@ export default function EventosTable() {
           ))}
         </tbody>
       </Table>
+
+      <Pagination>
+        <PageBtn
+          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </PageBtn>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <PageBtn
+            key={i + 1}
+            active={currentPage === i + 1}
+            onClick={() => setCurrentPage(i + 1)}
+          >
+            {i + 1}
+          </PageBtn>
+        ))}
+        <PageBtn
+          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+          disabled={currentPage === totalPages}
+        >
+          Próxima
+        </PageBtn>
+      </Pagination>
 
       {/* MODAL DE CADASTRO */}
       {isModalOpen && modalMode === "cadastro" && (
