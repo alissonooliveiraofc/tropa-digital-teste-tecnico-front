@@ -1,4 +1,4 @@
-# 🧩 Desafio Técnico - Tropa Digital
+# 🧩 Desafio Técnico - Tropa Digital - Front End
 
 Bem-vindo ao repositório do desafio técnico de front-end da **Tropa Digital**!  
 Este projeto foi desenvolvido como parte de um teste técnico, com o objetivo de demonstrar habilidades em desenvolvimento front-end utilizando tecnologias modernas.
@@ -64,4 +64,4 @@ Este projeto foi desenvolvido como parte de um teste técnico, com o objetivo de
 
 ---
 
-**Nota:** Este projeto foi desenvolvido exclusivamente para fins de avaliação técnica e não deve ser utilizado em produção.
+⚠️ **Nota:** Este projeto foi desenvolvido exclusivamente para fins de avaliação técnica e não deve ser utilizado em produção.
