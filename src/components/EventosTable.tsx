@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { FiSearch, FiPlus, FiMoreVertical, FiX } from "react-icons/fi";
 
@@ -48,13 +48,9 @@ const columns = [
     ),
   },
   {
-    header: "",
+    header: "", // Remova o botão duplicado aqui
     id: "actions",
-    cell: () => (
-      <ActionsButton>
-        <FiMoreVertical />
-      </ActionsButton>
-    ),
+    cell: () => null, // Deixe vazio ou remova completamente esta coluna
   },
 ];
 
@@ -299,6 +295,39 @@ const ModalSubmit = styled.button`
   }
 `;
 
+const ActionsMenu = styled.div`
+  position: absolute;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 120px;
+`;
+
+const ActionsMenuItem = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  color: #232323;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: #f7f7f7;
+  }
+  &.danger {
+    color: #e53e3e;
+  }
+`;
+
 export default function EventosTable() {
   const [data, setData] = useState(initialData);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -308,6 +337,10 @@ export default function EventosTable() {
     status: "Ativo",
     data: "",
   });
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [actionsMenuVisible, setActionsMenuVisible] = useState<number | null>(null);
+
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const table = useReactTable({
     data,
@@ -315,13 +348,20 @@ export default function EventosTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  function handleOpenModal() {
+  function handleOpenModal(index: number | null = null) {
     setModalOpen(true);
-    setNovoEvento({ nome: "", equipes: "", status: "Ativo", data: "" });
+    setActionsMenuVisible(null); // Fecha o menu ao clicar em Editar
+    setEditingIndex(index);
+    if (index !== null) {
+      setNovoEvento(data[index]);
+    } else {
+      setNovoEvento({ nome: "", equipes: "", status: "Ativo", data: "" });
+    }
   }
 
   function handleCloseModal() {
     setModalOpen(false);
+    setEditingIndex(null);
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -331,8 +371,52 @@ export default function EventosTable() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!novoEvento.nome || !novoEvento.equipes || !novoEvento.data) return;
-    setData([...data, { ...novoEvento, equipes: Number(novoEvento.equipes) }]);
+
+    let updatedData;
+    if (editingIndex !== null) {
+      updatedData = [...data];
+      updatedData[editingIndex] = { ...novoEvento, equipes: Number(novoEvento.equipes) };
+    } else {
+      updatedData = [...data, { ...novoEvento, equipes: Number(novoEvento.equipes) }];
+    }
+
+    setData(updatedData);
+    localStorage.setItem("eventos", JSON.stringify(updatedData));
     setModalOpen(false);
+  }
+
+  function handleRemove(index: number) {
+    const updatedData = data.filter((_, i) => i !== index);
+    setData(updatedData);
+    localStorage.setItem("eventos", JSON.stringify(updatedData));
+  }
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("eventos");
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
+
+  // Fechar o menu ao clicar fora
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setActionsMenuVisible(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  function handleView(index: number) {
+    setModalOpen(true);
+    setActionsMenuVisible(null); // Fecha o menu ao clicar em Visualizar
+    setEditingIndex(null); // Não estamos editando, apenas visualizando
+    setNovoEvento(data[index]);
   }
 
   return (
@@ -342,7 +426,7 @@ export default function EventosTable() {
           <FiSearch />
           <input placeholder="Buscar eventos" />
         </SearchBox>
-        <AddButton onClick={handleOpenModal}>
+        <AddButton onClick={() => handleOpenModal()}>
           <FiPlus />
           Inserir novo
         </AddButton>
@@ -366,75 +450,104 @@ export default function EventosTable() {
           </tr>
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => (
+          {table.getRowModel().rows.map((row, rowIndex) => (
             <tr key={row.id}>
               {row.getAllCells().map(cell => (
                 <Td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </Td>
               ))}
+              <Td>
+                <ActionsButton onClick={() => setActionsMenuVisible(rowIndex)}>
+                  <FiMoreVertical />
+                </ActionsButton>
+                {actionsMenuVisible === rowIndex && (
+                  <ActionsMenu ref={menuRef}>
+                    <ActionsMenuItem onClick={() => handleView(rowIndex)}>
+                      <FiSearch /> Visualizar
+                    </ActionsMenuItem>
+                    <ActionsMenuItem onClick={() => handleOpenModal(rowIndex)}>
+                      <FiPlus /> Editar
+                    </ActionsMenuItem>
+                    <ActionsMenuItem
+                      className="danger"
+                      onClick={() => handleRemove(rowIndex)}
+                    >
+                      <FiX /> Remover
+                    </ActionsMenuItem>
+                  </ActionsMenu>
+                )}
+              </Td>
             </tr>
           ))}
         </tbody>
       </Table>
-      <Pagination>
-        <PaginationTextBtn>Anterior</PaginationTextBtn>
-        <PageBtn active>1</PageBtn>
-        <PageBtn>2</PageBtn>
-        <PageBtn>3</PageBtn>
-        <PaginationTextBtn>Próxima</PaginationTextBtn>
-      </Pagination>
 
       {isModalOpen && (
         <ModalOverlay>
           <ModalContent>
             <ModalClose onClick={handleCloseModal}><FiX /></ModalClose>
-            <ModalTitle>Cadastrar novo evento</ModalTitle>
-            <ModalForm onSubmit={handleSubmit}>
-              <ModalLabel>Nome</ModalLabel>
-              <ModalInput
-                name="nome"
-                value={novoEvento.nome}
-                onChange={handleChange}
-                placeholder="Nome do evento"
-                required
-              />
-              <ModalLabel>Total de equipes</ModalLabel>
-              <ModalInput
-                name="equipes"
-                type="number"
-                min={1}
-                value={novoEvento.equipes}
-                onChange={handleChange}
-                placeholder="Quantidade"
-                required
-              />
-              <ModalLabel>Status</ModalLabel>
-              <select
-                name="status"
-                value={novoEvento.status}
-                onChange={handleChange}
-                style={{
-                  padding: "7px 10px",
-                  borderRadius: 6,
-                  border: "1px solid #e0e0e0",
-                  fontSize: "1rem",
-                  background: "#f6f6f6"
-                }}
-              >
-                <option value="Ativo">Ativo</option>
-                <option value="Inativo">Inativo</option>
-              </select>
-              <ModalLabel>Data</ModalLabel>
-              <ModalInput
-                name="data"
-                value={novoEvento.data}
-                onChange={handleChange}
-                placeholder="Ex: 09 a 11 de Junho"
-                required
-              />
-              <ModalSubmit type="submit">Cadastrar</ModalSubmit>
-            </ModalForm>
+            {editingIndex === null ? (
+              <>
+                <ModalTitle>Visualizar evento</ModalTitle>
+                <p><strong>Nome:</strong> {novoEvento.nome}</p>
+                <p><strong>Total de equipes:</strong> {novoEvento.equipes}</p>
+                <p><strong>Status:</strong> {novoEvento.status}</p>
+                <p><strong>Data:</strong> {novoEvento.data}</p>
+                <ModalSubmit onClick={handleCloseModal}>OK</ModalSubmit>
+              </>
+            ) : (
+              <>
+                <ModalTitle>{editingIndex !== null ? "Editar evento" : "Cadastrar novo evento"}</ModalTitle>
+                <ModalForm onSubmit={handleSubmit}>
+                  <ModalLabel>Nome</ModalLabel>
+                  <ModalInput
+                    name="nome"
+                    value={novoEvento.nome}
+                    onChange={handleChange}
+                    placeholder="Nome do evento"
+                    required
+                  />
+                  <ModalLabel>Total de equipes</ModalLabel>
+                  <ModalInput
+                    name="equipes"
+                    type="number"
+                    min={1}
+                    value={novoEvento.equipes}
+                    onChange={handleChange}
+                    placeholder="Quantidade"
+                    required
+                  />
+                  <ModalLabel>Status</ModalLabel>
+                  <select
+                    name="status"
+                    value={novoEvento.status}
+                    onChange={handleChange}
+                    style={{
+                      padding: "7px 10px",
+                      borderRadius: 6,
+                      border: "1px solid #e0e0e0",
+                      fontSize: "1rem",
+                      background: "#f6f6f6"
+                    }}
+                  >
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Inativo</option>
+                  </select>
+                  <ModalLabel>Data</ModalLabel>
+                  <ModalInput
+                    name="data"
+                    value={novoEvento.data}
+                    onChange={handleChange}
+                    placeholder="Ex: 09 a 11 de Junho"
+                    required
+                  />
+                  <ModalSubmit type="submit">
+                    {editingIndex !== null ? "Salvar alterações" : "Cadastrar"}
+                  </ModalSubmit>
+                </ModalForm>
+              </>
+            )}
           </ModalContent>
         </ModalOverlay>
       )}
