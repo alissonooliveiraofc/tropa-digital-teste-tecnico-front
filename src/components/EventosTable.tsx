@@ -445,7 +445,18 @@ export default function EventosTable() {
       <TopBar>
         <SearchBox>
           <FiSearch />
-          <input placeholder="Buscar eventos" />
+          <input
+            placeholder="Buscar eventos"
+            onChange={(e) => {
+              const searchTerm = e.target.value.toLowerCase();
+              const storedData = localStorage.getItem("eventos");
+              const allData = storedData ? JSON.parse(storedData) : initialData;
+              const filteredData = allData.filter((evento: any) =>
+                evento.nome.toLowerCase().includes(searchTerm)
+              );
+              setData(filteredData);
+            }}
+          />
         </SearchBox>
         <AddButton onClick={handleOpenCadastro}>
           <FiPlus />
