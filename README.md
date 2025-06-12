@@ -3,6 +3,7 @@
 Bem-vindo ao repositório do desafio técnico de front-end da **Tropa Digital**!  
 Este projeto foi desenvolvido como parte de um teste técnico, com o objetivo de demonstrar habilidades em desenvolvimento front-end utilizando tecnologias modernas.
 
+**Projeto Online:** [Acesse o Deploy do Projeto](https://tropa-digital-teste-tecnico-front.vercel.app/)
 ---
 
 ## 🚀 Tecnologias Utilizadas
