@@ -48,9 +48,9 @@ const columns = [
     ),
   },
   {
-    header: "", // Remova o botão duplicado aqui
+    header: "",
     id: "actions",
-    cell: () => null, // Deixe vazio ou remova completamente esta coluna
+    cell: () => null,
   },
 ];
 
@@ -200,8 +200,6 @@ const PageBtn = styled.button<{ active?: boolean }>`
     color: #fff;
   }
 `;
-
-// Removed unused PaginationTextBtn to fix the compile error
 
 // Modal styles
 const ModalOverlay = styled.div`

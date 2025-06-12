@@ -165,7 +165,6 @@ const SidebarButton = styled.button`
   }
 `;
 
-// Novo botão estilizado para o NavLink "Sair"
 const SidebarNavLink = styled(NavLink)`
   display: flex;
   align-items: center;

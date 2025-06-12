@@ -50,7 +50,7 @@ export default function Eventos() {
   // Estado compartilhado do nome do usuário
   const [userName, setUserName] = useState(() => localStorage.getItem("userName") || "Kaique Steck");
 
-  // Atualiza o nome se mudar no localStorage (ex: em outro tab)
+  // Atualiza o nome se mudar no localStorage
   useEffect(() => {
     const onStorage = () => setUserName(localStorage.getItem("userName") || "Kaique Steck");
     window.addEventListener("storage", onStorage);
